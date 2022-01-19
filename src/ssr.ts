@@ -36,6 +36,8 @@ const appRouter = trpc
         },
     });
 
+export type AppRouter = typeof appRouter;
+
 const app: Express = express();
 app.set("json spaces", 4);
 
