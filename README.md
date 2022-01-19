@@ -3,7 +3,7 @@
 # What is this?
 This is a POC of tRPC that can be deployed and works on Commerce Cloud Managed Runtime. 
 - It's written entirely in TypeScript
-- Uses ESBuild to compile and bundle TypeScript code. So no need to deploy node_modules folder as well. Only code that is used is deployed everything esle is dropped using tree shaking (see https://esbuild.github.io/api/#tree-shaking)
+- Uses ESBuild to compile and bundle TypeScript code. So no need to deploy node_modules folder as well. Only code that is used is deployed everything else is dropped using tree shaking (see https://esbuild.github.io/api/#tree-shaking)
 - Custom script to deploy the code to Managed Runtime is also provided so no dependecy on https://www.npmjs.com/package/pwa-kit-react-sdk
 - Can be used standalone as it is to deploy custom BD API using tRPC protocol or since it's just an Express.js middleware it can also be mounted as part of a PWA kit app and used there.
 
