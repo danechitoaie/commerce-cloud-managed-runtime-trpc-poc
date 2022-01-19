@@ -83,7 +83,6 @@ async function run() {
                     } catch (fetchErr) {
                         setError(fetchErr as Error);
                         reject(fetchErr);
-                        return;
                     }
                 });
         });
