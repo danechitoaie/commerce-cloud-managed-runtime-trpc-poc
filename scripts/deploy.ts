@@ -19,7 +19,7 @@ async function run() {
             return;
         }
 
-        await new Promise<void>((resolve, reject) => {
+        await new Promise<string>((resolve, reject) => {
             yargs
                 .usage("Usage: $0 [options]")
                 .option("username", { type: "string", description: "Username", demandOption: true })
@@ -28,13 +28,11 @@ async function run() {
                 .help()
                 .parse(process.argv, async (yargsErr: Error | undefined, argv: yargs.ArgumentsCamelCase<DeployArguments>, output: string) => {
                     if (yargsErr) {
-                        setError(yargsErr);
                         reject(yargsErr);
                         return;
                     }
 
                     if (output) {
-                        setOutput(output);
                         reject(output);
                         return;
                     }
@@ -71,21 +69,30 @@ async function run() {
                             body,
                         });
 
+                        if (res.status === 401) {
+                            const message = await res.text();
+                            reject(message);
+                            return;
+                        }
+
                         const { message } = await res.json();
 
                         if (res.ok) {
-                            setOutput(message);
                             resolve(message);
                         } else {
-                            setError(message);
                             reject(message);
                         }
                     } catch (fetchErr) {
-                        setError(fetchErr as Error);
                         reject(fetchErr);
                     }
                 });
-        });
+        })
+            .then((output) => {
+                setOutput(output);
+            })
+            .catch((output) => {
+                setError(output);
+            });
     });
 }
 

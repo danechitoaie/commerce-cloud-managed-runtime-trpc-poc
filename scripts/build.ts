@@ -39,7 +39,7 @@ async function run() {
         const prefix = `${pkg.name}/bld`;
         const cwd = path.resolve(__dirname, "../dist/build");
 
-        const fileList = await globby("*", { cwd });
+        const fileList = await globby("**/*", { cwd });
         await tar.create({ file, prefix, cwd }, fileList);
         setOutput(fileList.join("\n  "));
     });
